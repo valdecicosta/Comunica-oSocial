@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornalismo: Comunicação Social - Valdeci Costa</title>
+    
+    <!-- SEO e Meta Tags -->
+    <meta name="description" content="Infográfico interativo sobre Comunicação Social, Jornalismo e Publicidade.">
+    <meta name="author" content="Valdeci Costa">
+
+    <!-- Frameworks externos -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Lora:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+            scroll-behavior: smooth;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            height: 300px;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        
+        .card-shadow:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #F97316 100%);
+        }
+
+        .profile-avatar {
+            width: 120px;
+            height: 120px;
+            border: 4px solid rgba(255, 255, 255, 0.5);
+            border-radius: 9999px;
+            object-fit: cover;
+            background-color: #2563EB;
+        }
+
+        .nome-assinatura {
+            font-family: 'Lora', serif;
+            color: #FFFFFF;
+            text-shadow: none;
+        }
+
+        /* ESTILOS DO MODAL */
+        #textModal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 100;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(6px);
+        }
+
+        .modal-content {
+            background: white;
+            width: 100%;
+            max-width: 650px;
+            border-radius: 1rem;
+            overflow: hidden;
+            animation: modalIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        @keyframes modalIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- ESTRUTURA DO MODAL ÚNICO -->
+    <div id="textModal" onclick="closeModal()">
+        <div class="modal-content shadow-2xl" onclick="event.stopPropagation()">
+            <div class="bg-blue-900 p-6 text-white flex justify-between items-center border-b border-blue-800">
+                <h3 id="modalTitle" class="text-xl font-bold italic tracking-tight uppercase">Título</h3>
+                <button onclick="closeModal()" class="hover:bg-blue-800 p-1 rounded-full transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <div class="p-8">
+                <div id="modalBody" class="text-gray-700 text-lg leading-relaxed whitespace-pre-line">
+                    Texto informativo...
+                </div>
+                
+                <div id="modalLinkContainer" class="mt-8 pt-6 border-t border-gray-100 hidden">
+                    <p class="text-sm text-gray-500 mb-2 font-medium">Referências e Links:</p>
+                    <a id="modalExternalLink" href="#" target="_blank" class="inline-flex items-center gap-2 bg-blue-50 text-blue-700 px-4 py-3 rounded-lg font-bold hover:bg-blue-100 transition-all border border-blue-200">
+                        <i data-lucide="external-link" class="w-5 h-5"></i>
+                        <span id="labelLinkPrincipal">Clique aqui para ler mais</span>
+                    </a>
+                </div>
+
+                <div class="mt-8 flex justify-end">
+                    <button onclick="closeModal()" class="bg-orange-500 text-white px-8 py-2 rounded-lg font-bold hover:bg-orange-600 transition shadow-md">
+                        Fechar Leitura
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="gradient-header text-white py-12 px-6 mb-8 shadow-lg">
+        <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center gap-8">
+            <div class="flex-shrink-0 text-center">
+                <img src="https://i.ibb.co/G4rq5VdG/vc.jpg" 
+                     alt="Valdeci Costa" 
+                     class="profile-avatar shadow-2xl mb-2"
+                     onerror="this.src='https://ui-avatars.com/api/?name=Valdeci+Costa&size=200&background=F97316&color=fff'">
+                <p class="text-[10px] uppercase tracking-widest opacity-60">Foto de Perfil</p>
+            </div>
+
+            <div class="text-center md:text-left flex-grow">
+                <h1 class="text-4xl md:text-6xl font-black mb-2 tracking-tight uppercase">Comunicação Social</h1>
+                <p class="text-xl md:text-2xl font-light opacity-90 max-w-3xl">O Elo que Conecta a Sociedade: Da Informação à Estratégia</p>
+                <p class="text-xl md:text-2xl font-bold nome-assinatura mt-2 tracking-wide">Jornalista Valdeci Costa</p>
+                
+                <!-- BOTÕES DO HEADER -->
+                <div class="mt-6 flex flex-wrap justify-center md:justify-start gap-3">
+                    <button onclick="triggerModal('jornalismo')" class="bg-white/20 px-6 py-2 rounded-full text-xs font-bold backdrop-blur-md border border-white/30 hover:bg-white/40 transition-all flex items-center gap-2">
+                        <i data-lucide="newspaper" class="w-3 h-3"></i> Jornalismo
+                    </button>
+                    
+                    <!-- NOVO BOTÃO: Posicionado entre Jornalismo e Publicidade -->
+                    <button onclick="triggerModal('factual')" class="bg-white/20 px-6 py-2 rounded-full text-xs font-bold backdrop-blur-md border border-white/30 hover:bg-white/40 transition-all flex items-center gap-2">
+                        <i data-lucide="file-text" class="w-3 h-3"></i> Matéria Factual
+                    </button>
+
+                    <button onclick="triggerModal('publicidade')" class="bg-white/20 px-6 py-2 rounded-full text-xs font-bold backdrop-blur-md border border-white/30 hover:bg-white/40 transition-all flex items-center gap-2">
+                        <i data-lucide="megaphone" class="w-3 h-3"></i> Publicidade
+                    </button>
+                    
+                    <button onclick="triggerModal('rp')" class="bg-white/20 px-6 py-2 rounded-full text-xs font-bold backdrop-blur-md border border-white/30 hover:bg-white/40 transition-all flex items-center gap-2">
+                        <i data-lucide="users" class="w-3 h-3"></i> Relações Públicas
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-6xl mx-auto px-4 pb-12">
+        <section class="bg-white rounded-2xl card-shadow p-8 border-l-8 border-orange-500 mb-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
+                <div>
+                    <h2 class="text-3xl font-bold text-blue-900 mb-6 italic">O Que É Comunicação Social?</h2>
+                    <p class="text-gray-600 text-lg leading-relaxed mb-6">
+                        A Comunicação Social é uma ciência social aplicada dedicada a gerir as relações de troca de mensagens entre indivíduos e a sociedade global através de meios técnicos e estratégicos.
+                    </p>
+                    <button onclick="triggerModal('ciencia')" class="text-blue-600 font-bold hover:underline flex items-center gap-2">
+                        Saiba mais sobre a ciência da comunicação <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                    </button>
+                </div>
+                <div class="rounded-xl overflow-hidden shadow-inner bg-gray-200 h-64 cursor-pointer" onclick="triggerModal('ciencia')">
+                    <img src="https://images.unsplash.com/photo-1492724441997-5dc865305da7?auto=format&fit=crop&q=80&w=1000" alt="Equipe de Comunicação" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-500">
+                </div>
+            </div>
+        </section>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+            <section class="bg-white rounded-2xl card-shadow p-8">
+                <h2 class="text-2xl font-bold text-blue-900 mb-6">Explorar Carreiras</h2>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="group flex items-center p-4 rounded-xl bg-gray-50 hover:bg-blue-50 transition-all cursor-pointer border border-transparent hover:border-blue-200" 
+                         onclick="triggerModal('carreira_jornalismo')">
+                        <div class="h-12 w-12 rounded-full bg-blue-600 flex items-center justify-center text-white shadow-lg"><i data-lucide="pen-tool"></i></div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-gray-800">Carreiras em Jornalismo</h3>
+                            <p class="text-xs text-blue-600 font-bold uppercase tracking-wider">Ver detalhes e fontes</p>
+                        </div>
+                    </div>
+                    
+                    <div class="group flex items-center p-4 rounded-xl bg-gray-50 hover:bg-orange-50 transition-all cursor-pointer border border-transparent hover:border-orange-200"
+                         onclick="triggerModal('carreira_publicidade')">
+                        <div class="h-12 w-12 rounded-full bg-orange-500 flex items-center justify-center text-white shadow-lg"><i data-lucide="sparkles"></i></div>
+                        <div class="ml-4">
+                            <h3 class="font-bold text-gray-800">Carreiras em Publicidade</h3>
+                            <p class="text-xs text-orange-600 font-bold uppercase tracking-wider">Ver detalhes e fontes</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="bg-white rounded-2xl card-shadow p-6">
+                <h2 class="text-xl font-bold text-blue-900 mb-4 text-center">Interesse Académico</h2>
+                <div class="chart-container">
+                    <canvas id="professionalsChart"></canvas>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer class="bg-gray-900 text-gray-400 py-12 text-center">
+        <p class="text-sm">&copy; 2024 Comunicação Social - Jornalista Valdeci Costa.</p>
+    </footer>
+
+    <script>
+        lucide.createIcons();
+
+        const meuBancoDeTextos = {
+            'jornalismo': {
+                titulo: 'Jornalismo: A Voz da Sociedade',
+                texto: 'O jornalismo é o compromisso com a verdade e com a ética. Através da investigação e do relato imparcial, garantimos que a sociedade permaneça informada e crítica.',
+                url: 'jornalismo.html'
+            },
+            'factual': {
+                titulo: 'Matéria Factual: O Relato do Agora',
+                texto: 'A matéria factual, também conhecida como "hard news", é focada na objetividade e rapidez. Ela responde às perguntas fundamentais: Quem? O quê? Onde? Quando? Por quê?\n\nÉ o pilar do jornalismo diário que mantém a sociedade atualizada sobre fatos concretos e imediatos sem interferência de opinião pessoal do autor.',
+                url: 'https://g1.globo.com/'
+            },
+            'publicidade': {
+                titulo: 'Publicidade: Criatividade e Impacto',
+                texto: 'Mais do que vender, a publicidade cria ícones culturais e conecta marcas a pessoas de forma emocional e estratégica.',
+                url: 'https://www.abap.com.br/' 
+            },
+            'rp': {
+                titulo: 'Relações Públicas: Gestão de Confiança',
+                texto: 'As Relações Públicas cuidam do bem mais precioso de qualquer instituição: a sua reputação junto ao público e parceiros.',
+                url: 'https://conferp.org.br/'
+            },
+            'ciencia': {
+                titulo: 'A Ciência da Comunicação',
+                texto: 'Compreender como as mensagens são enviadas, recebidas e interpretadas é o coração da nossa profissão.\n\nNesta área, estudamos desde a semiótica até o impacto das novas tecnologias digitais na mente humana.',
+                url: 'https://www.intercom.org.br/'
+            },
+            'carreira_jornalismo': {
+                titulo: 'Mercado de Trabalho: Jornalismo',
+                texto: 'O campo para jornalistas expandiu-se. Hoje atuamos em:\n• Redações de portais e TV\n• Gestão de Redes Sociais\n• Podcast e Documentários\n• Assessoria Executiva',
+                url: 'https://vagas.com.br/vagas-de-jornalismo'
+            },
+            'carreira_publicidade': {
+                titulo: 'Mercado de Trabalho: Publicidade',
+                texto: 'O mercado busca especialistas em dados e criatividade:\n• Direção de Arte\n• Gestão de Tráfego Pago\n• Copywriting (Escrita Criativa)\n• Estratégia de Branding',
+                url: 'https://vagas.com.br/vagas-de-publicidade'
+            }
+        };
+
+        function triggerModal(chave) {
+            const dados = meuBancoDeTextos[chave];
+            if (dados) {
+                document.getElementById('modalTitle').innerText = dados.titulo;
+                document.getElementById('modalBody').innerText = dados.texto;
+                
+                const linkContainer = document.getElementById('modalLinkContainer');
+                const linkTag = document.getElementById('modalExternalLink');
+                const labelTag = document.getElementById('labelLinkPrincipal');
+                
+                if (dados.url && dados.url.trim() !== "") {
+                    linkTag.href = dados.url;
+                    
+                    // Rótulo customizado para matéria factual
+                    if (chave === 'factual') {
+                        labelTag.innerText = 'Ver exemplos de notícias factuais';
+                    } else {
+                        labelTag.innerText = 'Clique aqui para ler mais sobre este tema';
+                    }
+                    
+                    linkContainer.classList.remove('hidden');
+                } else {
+                    linkContainer.classList.add('hidden');
+                }
+
+                document.getElementById('textModal').style.display = 'flex';
+                document.body.style.overflow = 'hidden'; 
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('textModal').style.display = 'none';
+            document.body.style.overflow = 'auto'; 
+        }
+
+        const ctxProf = document.getElementById('professionalsChart').getContext('2d');
+        new Chart(ctxProf, {
+            type: 'doughnut',
+            data: {
+                labels: ['Jornalismo', 'Publicidade', 'RP', 'Audiovisual'],
+                datasets: [{
+                    data: [30, 25, 20, 25],
+                    backgroundColor: ['#1E3A8A', '#F97316', '#3B82F6', '#111827'],
+                    borderWidth: 0
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { position: 'bottom' } }
+            }
+        });
+    </script>
+</body>
+</html>

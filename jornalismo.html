@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jornalismo: A Cabeça da Matéria - Valdeci Costa</title>
+    
+    <!-- Frameworks externos para manter a consistência -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700;900&family=Lora:wght@700&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #F3F4F6;
+            color: #1F2937;
+            scroll-behavior: smooth;
+        }
+
+        .gradient-header {
+            background: linear-gradient(135deg, #1E3A8A 0%, #2563EB 50%, #F97316 100%);
+        }
+
+        .nome-assinatura {
+            font-family: 'Lora', serif;
+            color: #FFFFFF;
+        }
+
+        .card-shadow {
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .article-content p {
+            margin-bottom: 1.5rem;
+            line-height: 1.8;
+        }
+    </style>
+</head>
+<body class="antialiased flex flex-col min-h-screen">
+
+    <!-- Header Consistente -->
+    <header class="gradient-header text-white py-10 px-6 mb-8 shadow-lg">
+        <div class="max-w-4xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="text-center md:text-left">
+                <h1 class="text-3xl md:text-5xl font-black mb-2 tracking-tight uppercase">Jornalismo</h1>
+                <p class="text-lg md:text-xl font-bold nome-assinatura opacity-90 tracking-wide">Técnicas de Redação e Estrutura</p>
+            </div>
+            
+            <!-- Botão Voltar -->
+            <a href="pagina_principal.html" class="inline-flex items-center gap-2 bg-white/20 px-6 py-3 rounded-full text-sm font-bold backdrop-blur-md border border-white/30 hover:bg-white/40 transition-all">
+                <i data-lucide="arrow-left" class="w-4 h-4"></i>
+                Voltar ao Início
+            </a>
+        </div>
+    </header>
+
+    <main class="max-w-4xl mx-auto px-4 pb-12 flex-grow">
+        <!-- Conteúdo Principal -->
+        <article class="bg-white rounded-2xl card-shadow p-8 md:p-12 border-t-8 border-blue-600">
+            <div class="flex items-center gap-3 mb-8 text-blue-900">
+                <i data-lucide="file-text" class="w-8 h-8"></i>
+                <h2 class="text-2xl md:text-3xl font-bold italic">A Cabeça da Matéria</h2>
+            </div>
+
+            <div class="article-content text-gray-700 text-lg md:text-xl antialiased">
+                <p>
+                    A <strong>cabeça</strong> é o texto de apresentação da matéria e tem como finalidade sintetizar as informações centrais do conteúdo que será exibido. Esse texto é lido pelo apresentador ou locutor no estúdio, não cabendo ao repórter sua leitura.
+                </p>
+
+                <div class="bg-orange-50 border-l-4 border-orange-500 p-6 my-8 rounded-r-xl">
+                    <p class="text-orange-900 font-medium mb-0">
+                        Compete ao repórter a elaboração da sugestão de cabeça, com base na apuração realizada. A decisão sobre sua aprovação, alteração ou substituição é atribuição do <strong>editor-chefe</strong>.
+                    </p>
+                </div>
+
+                <p>
+                    A redação da cabeça constitui a etapa inicial do processo de construção da matéria. Deve antecipar ao telespectador, de forma clara, objetiva e precisa, os principais elementos da reportagem. 
+                </p>
+                
+                <p>
+                    Por essa razão, a cabeça deve ser <strong>breve, direta e informativa</strong>, funcionando como a “embalagem” da notícia e orientando o público quanto ao conteúdo que será apresentado na sequência.
+                </p>
+            </div>
+
+            <!-- Rodapé interno do artigo -->
+            <div class="mt-12 pt-8 border-t border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="flex items-center gap-2 text-gray-400 text-sm">
+                    <i data-lucide="clock" class="w-4 h-4"></i>
+                    <span>Tempo de leitura: 2 min</span>
+                </div>
+                <div class="flex gap-4">
+                    <button class="text-blue-600 hover:text-blue-800 transition-colors">
+                        <i data-lucide="share-2" class="w-5 h-5"></i>
+                    </button>
+                    <button class="text-blue-600 hover:text-blue-800 transition-colors">
+                        <i data-lucide="bookmark" class="w-5 h-5"></i>
+                    </button>
+                </div>
+            </div>
+        </article>
+    </main>
+
+    <!-- Footer Consistente -->
+    <footer class="bg-gray-900 text-gray-400 py-8 text-center mt-auto">
+        <p class="text-sm">&copy; 2024 Comunicação Social - Jornalista Valdeci Costa.</p>
+    </footer>
+
+    <script>
+        // Inicializa os ícones do Lucide
+        lucide.createIcons();
+    </script>
+</body>
+</html>
